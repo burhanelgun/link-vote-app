@@ -22,8 +22,18 @@ export class LinkListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  upVoteLink(link:Link){
+    var upVotedLinkOldIndex =this.getLinkIndex(link);
+    this.relocateUpVotedLink(upVotedLinkOldIndex);
+  }
+
+  downVoteLink(link:Link){
+    var downVotedLinkOldIndex =this.getLinkIndex(link);
+    this.relocateDownVotedLink(downVotedLinkOldIndex);
+  }
+
   getLinkIndex(link:Link){
-    var linkIndex
+    var linkIndex;
     for (let i=0; i<this.links.length;i++) {
       if(link.id==this.links[i].id){
         linkIndex=i;
@@ -33,42 +43,32 @@ export class LinkListComponent implements OnInit {
   }
 
   relocateUpVotedLink(upVotedLinkOldIndex:number){
-    var counter=upVotedLinkOldIndex-1;
-    for (; counter>0; counter=counter-1) {
-      if(this.links[counter].point>this.links[upVotedLinkOldIndex].point){
-        counter = counter +1;
-        break;
+    var insertionIndex = upVotedLinkOldIndex;
+    for(let i=upVotedLinkOldIndex; i>=0; i--){
+      if(this.links[i].point<this.links[upVotedLinkOldIndex].point){
+        insertionIndex = i;
       }
-      else if(this.links[counter].point==this.links[upVotedLinkOldIndex].point){
+      else if(this.links[i].point==this.links[upVotedLinkOldIndex].point){
+        insertionIndex = i;
       }
     }
     var upVotedLink = this.links[upVotedLinkOldIndex];
     this.links.splice(upVotedLinkOldIndex, 1); //remove the link from old location
-    this.links.splice(counter,0,upVotedLink); //insert the link proper location
+    this.links.splice(insertionIndex,0,upVotedLink); //insert the link proper location
   }
+
   relocateDownVotedLink(downVotedLinkOldIndex:number){
-    var counter=downVotedLinkOldIndex+1;
-    for (; counter<this.links.length; counter=counter+1) {
-      if(this.links[counter].point<this.links[downVotedLinkOldIndex].point){
-        counter = counter-1;
-        break;
+    var insertionIndex = downVotedLinkOldIndex;
+    for(let i=downVotedLinkOldIndex; i<this.links.length; i++){
+      if(this.links[i].point>this.links[downVotedLinkOldIndex].point){
+        insertionIndex = i;
       }
-      else if(this.links[counter].point==this.links[downVotedLinkOldIndex].point){
+      else if(this.links[i].point==this.links[downVotedLinkOldIndex].point){
       }
     }
     var downVotedLink = this.links[downVotedLinkOldIndex];
     this.links.splice(downVotedLinkOldIndex, 1); //remove the link from old location
-    this.links.splice(counter,0,downVotedLink); //insert the link proper location
-  }
-
-  upVoteLink(link:Link){
-    var upVotedLinkOldIndex =this.getLinkIndex(link);
-    this.relocateUpVotedLink(upVotedLinkOldIndex);
-  }
-
-  downVoteLink(link:Link){
-    var downVotedLinkOldIndex =this.getLinkIndex(link);
-    this.relocateDownVotedLink(downVotedLinkOldIndex);
+    this.links.splice(insertionIndex,0,downVotedLink); //insert the link proper location
   }
 
 }
