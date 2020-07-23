@@ -9,7 +9,8 @@ import { Link } from '../models/link';
 export class LinkListItemComponent implements OnInit {
   
   @Input() link: Link;
-  @Output() changedLink = new EventEmitter<Link>();
+  @Output() upVoteLink = new EventEmitter<Link>();
+  @Output() downVoteLink = new EventEmitter<Link>();
 
   constructor() { }
 
@@ -19,14 +20,14 @@ export class LinkListItemComponent implements OnInit {
   upVoteBtnClick(){
     console.log("upVote");
     this.link.point++;
-    this.changedLink.emit(this.link);
+    this.upVoteLink.emit(this.link);
 
   }
 
   downVoteBtnClick(){
     console.log("downVote");
     this.link.point--;
-    this.changedLink.emit(this.link);
+    this.downVoteLink.emit(this.link);
   }
 
 }

@@ -8,12 +8,12 @@ import { Link } from 'src/app/models/link';
 })
 export class LinkListComponent implements OnInit {
   links: Link[] = [
-    { id: 1, title: 'Google', url:"www.google.com", point:20 },
-    { id: 2, title: 'Twitter', url:"www.twitter.com", point:30 },
-    { id: 3, title: 'Facebook', url:"www.facebook.com", point:40 },
-    { id: 4, title: 'Instagram', url:"www.instagram.com", point:50 },
-    { id: 5, title: 'Youtube', url:"www.youtube.com", point:60 },
-    { id: 6, title: 'Stackoverflow', url:"www.stackoverflow.com", point:70 },
+    { id: 1, title: 'Google', url:"www.google.com", point:0},
+    { id: 2, title: 'Twitter', url:"www.twitter.com", point:0 },
+    { id: 3, title: 'Facebook', url:"www.facebook.com", point:0 },
+    { id: 4, title: 'Instagram', url:"www.instagram.com", point:0},
+    { id: 5, title: 'Youtube', url:"www.youtube.com", point:0 },
+    { id: 6, title: 'Stackoverflow', url:"www.stackoverflow.com", point:0 },
   ];
 
 
@@ -22,9 +22,53 @@ export class LinkListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changedLinkChange(link:Link){
-    console.log(link.title);
-    console.log("two way is working")
+  getLinkIndex(link:Link){
+    var linkIndex
+    for (let i=0; i<this.links.length;i++) {
+      if(link.id==this.links[i].id){
+        linkIndex=i;
+      }
+    }
+    return linkIndex;
+  }
+
+  relocateUpVotedLink(upVotedLinkOldIndex:number){
+    var counter=upVotedLinkOldIndex-1;
+    for (; counter>0; counter=counter-1) {
+      if(this.links[counter].point>this.links[upVotedLinkOldIndex].point){
+        counter = counter +1;
+        break;
+      }
+      else if(this.links[counter].point==this.links[upVotedLinkOldIndex].point){
+      }
+    }
+    var upVotedLink = this.links[upVotedLinkOldIndex];
+    this.links.splice(upVotedLinkOldIndex, 1); //remove the link from old location
+    this.links.splice(counter,0,upVotedLink); //insert the link proper location
+  }
+  relocateDownVotedLink(downVotedLinkOldIndex:number){
+    var counter=downVotedLinkOldIndex+1;
+    for (; counter<this.links.length; counter=counter+1) {
+      if(this.links[counter].point<this.links[downVotedLinkOldIndex].point){
+        counter = counter-1;
+        break;
+      }
+      else if(this.links[counter].point==this.links[downVotedLinkOldIndex].point){
+      }
+    }
+    var downVotedLink = this.links[downVotedLinkOldIndex];
+    this.links.splice(downVotedLinkOldIndex, 1); //remove the link from old location
+    this.links.splice(counter,0,downVotedLink); //insert the link proper location
+  }
+
+  upVoteLink(link:Link){
+    var upVotedLinkOldIndex =this.getLinkIndex(link);
+    this.relocateUpVotedLink(upVotedLinkOldIndex);
+  }
+
+  downVoteLink(link:Link){
+    var downVotedLinkOldIndex =this.getLinkIndex(link);
+    this.relocateDownVotedLink(downVotedLinkOldIndex);
   }
 
 }
