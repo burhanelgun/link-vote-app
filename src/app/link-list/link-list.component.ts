@@ -7,7 +7,6 @@ import { Link } from 'src/app/models/link';
   styleUrls: ['./link-list.component.css']
 })
 export class LinkListComponent implements OnInit {
-
   links: Link[] = [
     { id: 1, title: 'Google', url:"www.google.com", point:20 },
     { id: 2, title: 'Twitter', url:"www.twitter.com", point:30 },
@@ -21,6 +20,11 @@ export class LinkListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changedLinkChange(link:Link){
+    console.log(link.title);
+    console.log("two way is working")
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Link } from '../models/link';
 
 @Component({
@@ -9,6 +9,7 @@ import { Link } from '../models/link';
 export class LinkListItemComponent implements OnInit {
   
   @Input() link: Link;
+  @Output() changedLink = new EventEmitter<Link>();
 
   constructor() { }
 
@@ -18,11 +19,14 @@ export class LinkListItemComponent implements OnInit {
   upVoteBtnClick(){
     console.log("upVote");
     this.link.point++;
+    this.changedLink.emit(this.link);
+
   }
 
   downVoteBtnClick(){
     console.log("downVote");
     this.link.point--;
+    this.changedLink.emit(this.link);
   }
 
 }

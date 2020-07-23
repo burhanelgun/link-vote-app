@@ -2,7 +2,7 @@
 
 <ul class="heroes">
   <li *ngFor="let link of links">
-    <app-link-list-item [link]=link></app-link-list-item>
+    <app-link-list-item (changedLink)="changedLinkChange($event)" [link]=link></app-link-list-item>
   </li>
 </ul>
 
