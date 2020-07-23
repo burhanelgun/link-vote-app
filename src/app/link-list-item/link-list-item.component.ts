@@ -15,4 +15,14 @@ export class LinkListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  upVoteBtnClick(){
+    console.log("upVote");
+    this.link.point++;
+  }
+
+  downVoteBtnClick(){
+    console.log("downVote");
+    this.link.point--;
+  }
+
 }
