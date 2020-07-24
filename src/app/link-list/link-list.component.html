@@ -12,9 +12,10 @@
   </mat-select>
 </mat-form-field>
 
-<ul class="heroes">
+<ul class="links">
   <li *ngFor="let link of linkListService.links">
-    <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" (downVoteLink)="downVoteLinkBtnOnClick($event)" [link]=link></app-link-list-item>
+    <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" (downVoteLink)="downVoteLinkBtnOnClick($event)" (removeLink)="removeLinkBtnOnClick($event)" [link]=link></app-link-list-item>
   </li>
 </ul>
+
 

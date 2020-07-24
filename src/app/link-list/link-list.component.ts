@@ -48,6 +48,10 @@ export class LinkListComponent implements OnInit {
     var properIndexOfDownVotedLink=this.linkListService.getProperIndexForDownvotedLink(oldIndexOfDownVotedLink);
     this.linkListService.insertLinkToProperIndex(oldIndexOfDownVotedLink,properIndexOfDownVotedLink);
   }
+
+  removeLinkBtnOnClick(link:Link){
+    this.linkListService.remove(link);
+  }
  
   onChangeDropDownBox(selectedOrderByOption:string) {
     this.selectedOrderByOption = selectedOrderByOption;

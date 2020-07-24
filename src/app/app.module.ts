@@ -12,6 +12,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module'; 
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule }   from '@angular/forms';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { FormsModule }   from '@angular/forms';
     MatIconModule,
     MatSelectModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

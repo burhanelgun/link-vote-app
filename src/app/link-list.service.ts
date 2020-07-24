@@ -28,6 +28,11 @@ export class LinkListService {
     }
   }
 
+  remove(link:Link){
+    var linkIndex =this.getLinkIndex(link);
+    this.links.splice(linkIndex, 1);
+  }
+
   setSelectedOrderByOption(selectedOrderByOption:string){
     this.selectedOrderByOption=selectedOrderByOption;
   }
