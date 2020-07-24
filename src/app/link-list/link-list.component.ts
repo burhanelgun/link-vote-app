@@ -8,18 +8,23 @@ import { Link } from 'src/app/models/link';
 })
 export class LinkListComponent implements OnInit {
   links: Link[] = [
-    { id: 1, title: 'Google', url:"www.google.com", point:0},
-    { id: 2, title: 'Twitter', url:"www.twitter.com", point:0 },
-    { id: 3, title: 'Facebook', url:"www.facebook.com", point:0 },
-    { id: 4, title: 'Instagram', url:"www.instagram.com", point:0},
-    { id: 5, title: 'Youtube', url:"www.youtube.com", point:0 },
-    { id: 6, title: 'Stackoverflow', url:"www.stackoverflow.com", point:0 },
+    { id: 1, title: 'Google', url:"www.google.com", point:0, creationTimestamp:"1"},
+    { id: 2, title: 'Twitter', url:"www.twitter.com", point:0, creationTimestamp:"2"},
+    { id: 3, title: 'Facebook', url:"www.facebook.com", point:0, creationTimestamp:"3" },
+    { id: 4, title: 'Instagram', url:"www.instagram.com", point:0, creationTimestamp:"4"},
+    { id: 5, title: 'Youtube', url:"www.youtube.com", point:0, creationTimestamp:"5" },
+    { id: 6, title: 'Stackoverflow', url:"www.stackoverflow.com", point:0, creationTimestamp:"6" },
   ];
 
 
   constructor() { }
 
   ngOnInit(): void {
+    this.sortByCreationTimestampDecreasingly();
+  }
+
+  sortByCreationTimestampDecreasingly(){
+    this.links.sort((a,b) => b.creationTimestamp.localeCompare(a.creationTimestamp));
   }
 
   upVoteLink(link:Link){
@@ -48,7 +53,8 @@ export class LinkListComponent implements OnInit {
       if(this.links[i].point<this.links[upVotedLinkOldIndex].point){
         insertionIndex = i;
       }
-      else if(this.links[i].point==this.links[upVotedLinkOldIndex].point){
+      else if(this.links[i].point==this.links[upVotedLinkOldIndex].point &&
+         this.links[i].creationTimestamp<this.links[upVotedLinkOldIndex].creationTimestamp){
         insertionIndex = i;
       }
     }
@@ -63,7 +69,9 @@ export class LinkListComponent implements OnInit {
       if(this.links[i].point>this.links[downVotedLinkOldIndex].point){
         insertionIndex = i;
       }
-      else if(this.links[i].point==this.links[downVotedLinkOldIndex].point){
+      else if(this.links[i].point==this.links[downVotedLinkOldIndex].point && 
+        this.links[i].creationTimestamp>this.links[downVotedLinkOldIndex].creationTimestamp){
+          insertionIndex = i;
       }
     }
     var downVotedLink = this.links[downVotedLinkOldIndex];

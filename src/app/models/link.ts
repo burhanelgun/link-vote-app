@@ -3,4 +3,5 @@ export interface Link {
     title: string;
     url: string;
     point: number;
+    creationTimestamp: string;
 }
