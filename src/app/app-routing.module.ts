@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SubmitALinkComponent } from './submit-a-link/submit-a-link.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LinkListComponent } from './link-list/link-list.component';

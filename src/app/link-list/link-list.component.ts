@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Link } from 'src/app/models/link';
-import { LinkListService } from 'src/app/link-list.service';
+import { LinkListService } from 'src/app/service/link-list.service';
 
 import { Router } from '@angular/router';
 
@@ -11,14 +11,16 @@ import { Router } from '@angular/router';
 })
 export class LinkListComponent implements OnInit {
  
-
   selectedOrderByOption:string;
 
   constructor(private router: Router, public linkListService: LinkListService) { }
 
   ngOnInit(): void {
     if(this.linkListService.selectedOrderByOption==null){
-      this.linkListService.links= JSON.parse(localStorage.getItem('links'));
+      var links = JSON.parse(localStorage.getItem('links'));
+      if(links!=null){
+        this.linkListService.links=links
+      }
       this.linkListService.sortByCreationTimestampDecreasingly();
     }
     else if(this.linkListService.selectedOrderByOption=="mostToLess"){
@@ -62,7 +64,5 @@ export class LinkListComponent implements OnInit {
       this.linkListService.sortByPointIncreasingly();
     }
   }
-
-
 
 }

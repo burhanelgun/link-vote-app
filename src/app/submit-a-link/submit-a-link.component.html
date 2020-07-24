@@ -1,19 +1,24 @@
-<button mat-button (click)="returnToListBtnOnClick()">
-    <mat-icon>west</mat-icon>
-    Return to List
-</button>
+<div class="submit-link">
+    <button mat-raised-button (click)="returnToListBtnOnClick()" color="primary">
+        <mat-icon>west</mat-icon>
+        Return to List
+    </button>
+</div>
+<div class="submit-link">
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Link Name</mat-label>
+          <input matInput [(ngModel)]="link.title" name="title" placeholder="e.g. Alphabet">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Link URL</mat-label>
+            <input matInput [(ngModel)]="link.url" name="url" placeholder="e.g. https://abc.xyz/">
+          </mat-form-field>
+    </form>
+</div>
+<div class="submit-link">
+    <button mat-raised-button (click)="addBtnOnClick()" color="primary">
+        Add
+    </button>
+</div>
 
-<form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Link Name</mat-label>
-      <input matInput [(ngModel)]="link.title" name="title" placeholder="e.g. Alphabet">
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-        <mat-label>Link URL</mat-label>
-        <input matInput [(ngModel)]="link.url" name="url" placeholder="e.g. https://abc.xyz/">
-      </mat-form-field>
-</form>
-
-<button mat-button (click)="addBtnOnClick()">
-    Add
-</button>

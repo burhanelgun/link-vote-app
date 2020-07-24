@@ -1,21 +1,26 @@
-<button mat-raised-button (click)="submitALinkBtnOnClick()">
-  <mat-icon>add</mat-icon>
-  Submit A Link</button>
-<br/>
+<div class="link-list">
+  <button mat-raised-button color="primary" (click)="submitALinkBtnOnClick()">
+    <mat-icon>add</mat-icon>
+    Submit A Link</button>
+</div>
 
-<mat-form-field appearance="fill">
-  <mat-label>Order by</mat-label>
-  <mat-select (selectionChange)="onChangeDropDownBox($event.value)" >
-    <mat-option>None</mat-option>
-    <mat-option value="mostToLess">Most Voted (Z->A)</mat-option>
-    <mat-option value="lessToMost">Less Voted (A->Z)</mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="link-list">
+  <mat-form-field appearance="fill">
+    <mat-label>Order by</mat-label>
+    <mat-select (selectionChange)="onChangeDropDownBox($event.value)" >
+      <mat-option>None</mat-option>
+      <mat-option value="mostToLess">Most Voted (Z->A)</mat-option>
+      <mat-option value="lessToMost">Less Voted (A->Z)</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
-<ul class="links">
-  <li *ngFor="let link of linkListService.links">
-    <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" (downVoteLink)="downVoteLinkBtnOnClick($event)" (removeLink)="removeLinkBtnOnClick($event)" [link]=link></app-link-list-item>
-  </li>
-</ul>
-
-
+<div class="link-list">
+  <ul class="links">
+    <li *ngFor="let link of linkListService.links">
+      <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" 
+      (downVoteLink)="downVoteLinkBtnOnClick($event)" (removeLink)="removeLinkBtnOnClick($event)" 
+      [link]=link></app-link-list-item>
+    </li>
+  </ul>  
+</div>

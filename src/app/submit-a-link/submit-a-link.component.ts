@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Link } from '../models/link';
-import { LinkListService } from '../link-list.service';
+import { LinkListService } from '../service/link-list.service';
 
 @Component({
   selector: 'app-submit-a-link',

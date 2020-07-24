@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { LinkListService } from './link-list.service';
+import { LinkListService } from './service/link-list.service';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +16,9 @@ export class AppComponent {
     localStorage.setItem('links', JSON.stringify(this.linkListService.links));
   }
 
+  @HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHandler(event) {
+    localStorage.setItem('links', JSON.stringify(this.linkListService.links));
+  }
 
 }

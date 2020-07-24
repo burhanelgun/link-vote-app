@@ -19,20 +19,16 @@ export class LinkListItemComponent implements OnInit {
   }
 
   upVoteBtnOnClick(){
-    console.log("upVote");
     this.link.point++;
     this.upVoteLink.emit(this.link);
-
   }
 
   downVoteBtnOnClick(){
-    console.log("downVote");
     this.link.point--;
     this.downVoteLink.emit(this.link);
   }
 
   removeLinkBtnOnClick(){
-    console.log("remove");
     this.removeLink.emit(this.link);
   }
 

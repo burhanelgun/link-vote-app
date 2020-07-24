@@ -1,5 +1,5 @@
 import { Injectable, HostListener } from '@angular/core';
-import { Link } from './models/link';
+import { Link } from '../models/link';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,11 @@ import { Link } from './models/link';
 export class LinkListService {
   selectedOrderByOption:string;
   links: Link[] = [
-
+    { title: 'Google', url:"www.google.com", point:3, creationTimestamp:1},
+    { title: 'Twitter', url:"www.twitter.com", point:5, creationTimestamp:2},
+    { title: 'Facebook', url:"www.facebook.com", point:8, creationTimestamp:3 }
   ];
+  
   constructor() { }
 
   addLink(link:Link){
@@ -101,15 +104,12 @@ export class LinkListService {
   }
 
   insertLinkToProperIndex(oldIndexOfVotedLink:number,properIndexOfVotedLink:number){
-    console.log("oldIndexOfVotedLink:",oldIndexOfVotedLink);
-    console.log("properIndexOfVotedLink:",properIndexOfVotedLink);
     var downVotedLink = this.links[oldIndexOfVotedLink];
     this.links.splice(oldIndexOfVotedLink, 1); //remove the link from old location
     this.links.splice(properIndexOfVotedLink,0,downVotedLink); //insert the link proper location
   }
   
   sortByPointDecreasingly(){
-    console.log("decr");
     this.links.sort((a,b) => {
       if(b.point-a.point==0){
         return b.creationTimestamp-a.creationTimestamp;
@@ -121,7 +121,6 @@ export class LinkListService {
   }
 
   sortByPointIncreasingly(){
-    console.log("incr");
     this.links.sort((a,b) => {
       if(a.point-b.point==0){
         return b.creationTimestamp-a.creationTimestamp;
@@ -131,10 +130,4 @@ export class LinkListService {
       }
     });  
   }
- 
-
-
-
-
-
 }
