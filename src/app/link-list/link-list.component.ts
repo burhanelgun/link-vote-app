@@ -16,6 +16,7 @@ export class LinkListComponent implements OnInit {
     { id: 6, title: 'Stackoverflow', url:"www.stackoverflow.com", point:0, creationTimestamp:"6" },
   ];
 
+  selectedOrderByOption:string;
 
   constructor() { }
 
@@ -27,14 +28,26 @@ export class LinkListComponent implements OnInit {
     this.links.sort((a,b) => b.creationTimestamp.localeCompare(a.creationTimestamp));
   }
 
-  upVoteLink(link:Link){
-    var upVotedLinkOldIndex =this.getLinkIndex(link);
-    this.relocateUpVotedLink(upVotedLinkOldIndex);
+  upVoteLinkBtnOnClick(link:Link){
+    var oldIndexOfUpVotedLink=this.getLinkIndex(link);
+    var properIndexOfUpVotedLink=this.getProperIndexForUpvotedLink(oldIndexOfUpVotedLink);
+    this.insertLinkToProperIndex(oldIndexOfUpVotedLink,properIndexOfUpVotedLink);
   }
 
-  downVoteLink(link:Link){
-    var downVotedLinkOldIndex =this.getLinkIndex(link);
-    this.relocateDownVotedLink(downVotedLinkOldIndex);
+  downVoteLinkBtnOnClick(link:Link){
+    var oldIndexOfDownVotedLink =this.getLinkIndex(link);
+    var properIndexOfDownVotedLink=this.getProperIndexForDownvotedLink(oldIndexOfDownVotedLink);
+    this.insertLinkToProperIndex(oldIndexOfDownVotedLink,properIndexOfDownVotedLink);
+  }
+  
+  onChangeDropDownBox(selectedOrderByOption:string) {
+    this.selectedOrderByOption = selectedOrderByOption;
+    if(this.selectedOrderByOption=="mostToLess"){
+      this.sortByPointDecreasingly();
+    }
+    else if(this.selectedOrderByOption=="lessToMost"){
+      this.sortByPointIncreasingly();
+    }
   }
 
   getLinkIndex(link:Link){
@@ -47,36 +60,79 @@ export class LinkListComponent implements OnInit {
     return linkIndex;
   }
 
-  relocateUpVotedLink(upVotedLinkOldIndex:number){
-    var insertionIndex = upVotedLinkOldIndex;
-    for(let i=upVotedLinkOldIndex; i>=0; i--){
-      if(this.links[i].point<this.links[upVotedLinkOldIndex].point){
-        insertionIndex = i;
-      }
-      else if(this.links[i].point==this.links[upVotedLinkOldIndex].point &&
-         this.links[i].creationTimestamp<this.links[upVotedLinkOldIndex].creationTimestamp){
-        insertionIndex = i;
+  getProperIndexForUpvotedLink(upVotedLinkOldIndex:number){
+    var properIndexOfUpVotedLink = upVotedLinkOldIndex;
+    if(this.selectedOrderByOption==null || this.selectedOrderByOption=="mostToLess"){
+      for(let i=upVotedLinkOldIndex; i>=0; i--){
+        if(this.links[i].point<this.links[upVotedLinkOldIndex].point){
+          properIndexOfUpVotedLink = i;
+        }
+        else if(this.links[i].point==this.links[upVotedLinkOldIndex].point &&
+           this.links[i].creationTimestamp<this.links[upVotedLinkOldIndex].creationTimestamp){
+            properIndexOfUpVotedLink = i;
+        }
       }
     }
-    var upVotedLink = this.links[upVotedLinkOldIndex];
-    this.links.splice(upVotedLinkOldIndex, 1); //remove the link from old location
-    this.links.splice(insertionIndex,0,upVotedLink); //insert the link proper location
+    else if(this.selectedOrderByOption=="lessToMost"){
+      for(let i=upVotedLinkOldIndex; i<this.links.length; i++){
+        if(this.links[i].point<this.links[upVotedLinkOldIndex].point){
+          properIndexOfUpVotedLink = i;
+        }
+        else if(this.links[i].point==this.links[upVotedLinkOldIndex].point &&
+           this.links[i].creationTimestamp>this.links[upVotedLinkOldIndex].creationTimestamp){
+            properIndexOfUpVotedLink = i;
+        }
+      }
+    }
+    return properIndexOfUpVotedLink;
   }
 
-  relocateDownVotedLink(downVotedLinkOldIndex:number){
-    var insertionIndex = downVotedLinkOldIndex;
-    for(let i=downVotedLinkOldIndex; i<this.links.length; i++){
-      if(this.links[i].point>this.links[downVotedLinkOldIndex].point){
-        insertionIndex = i;
-      }
-      else if(this.links[i].point==this.links[downVotedLinkOldIndex].point && 
-        this.links[i].creationTimestamp>this.links[downVotedLinkOldIndex].creationTimestamp){
-          insertionIndex = i;
+  getProperIndexForDownvotedLink(downVotedLinkOldIndex:number){
+    var properIndexOfDownVotedLink = downVotedLinkOldIndex;
+    if(this.selectedOrderByOption==null || this.selectedOrderByOption=="mostToLess"){
+      for(let i=downVotedLinkOldIndex; i<this.links.length; i++){
+        if(this.links[i].point>this.links[downVotedLinkOldIndex].point){
+          properIndexOfDownVotedLink = i;
+        }
+        else if(this.links[i].point==this.links[downVotedLinkOldIndex].point && 
+          this.links[i].creationTimestamp>this.links[downVotedLinkOldIndex].creationTimestamp){
+            properIndexOfDownVotedLink = i;
+        }
       }
     }
-    var downVotedLink = this.links[downVotedLinkOldIndex];
-    this.links.splice(downVotedLinkOldIndex, 1); //remove the link from old location
-    this.links.splice(insertionIndex,0,downVotedLink); //insert the link proper location
+    else if(this.selectedOrderByOption=="lessToMost"){
+      for(let i=downVotedLinkOldIndex; i>=0; i--){
+        if(this.links[i].point>this.links[downVotedLinkOldIndex].point){
+          properIndexOfDownVotedLink = i;
+        }
+        else if(this.links[i].point==this.links[downVotedLinkOldIndex].point && 
+          this.links[i].creationTimestamp<this.links[downVotedLinkOldIndex].creationTimestamp){
+            properIndexOfDownVotedLink = i;
+        }
+      }
+    }
+    return properIndexOfDownVotedLink;
   }
+
+  insertLinkToProperIndex(oldIndexOfVotedLink:number,properIndexOfVotedLink:number){
+    var downVotedLink = this.links[oldIndexOfVotedLink];
+    this.links.splice(oldIndexOfVotedLink, 1); //remove the link from old location
+    this.links.splice(properIndexOfVotedLink,0,downVotedLink); //insert the link proper location
+  }
+  
+  sortByPointDecreasingly(){
+    this.links.sort((a,b) => b.point - a.point);
+  }
+
+  sortByPointIncreasingly(){
+    this.links.sort((a,b) => a.point - b.point);
+  }
+ 
+
+
+
+
+
+
 
 }

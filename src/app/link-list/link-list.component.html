@@ -1,8 +1,15 @@
-<h2>Link List</h2>
+<mat-form-field appearance="fill">
+  <mat-label>Order by</mat-label>
+  <mat-select (selectionChange)="onChangeDropDownBox($event.value)" >
+    <mat-option>None</mat-option>
+    <mat-option value="mostToLess">Most Voted (Z->A)</mat-option>
+    <mat-option value="lessToMost">Less Voted (A->Z)</mat-option>
+  </mat-select>
+</mat-form-field>
 
 <ul class="heroes">
   <li *ngFor="let link of links">
-    <app-link-list-item (upVoteLink)="upVoteLink($event)" (downVoteLink)="downVoteLink($event)" [link]=link></app-link-list-item>
+    <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" (downVoteLink)="downVoteLinkBtnOnClick($event)" [link]=link></app-link-list-item>
   </li>
 </ul>
 
