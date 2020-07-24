@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Link } from 'src/app/models/link';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-link-list',
@@ -18,7 +19,7 @@ export class LinkListComponent implements OnInit {
 
   selectedOrderByOption:string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.sortByCreationTimestampDecreasingly();
@@ -40,6 +41,10 @@ export class LinkListComponent implements OnInit {
     this.insertLinkToProperIndex(oldIndexOfDownVotedLink,properIndexOfDownVotedLink);
   }
   
+  submitALinkBtnOnClick(){
+    this.router.navigate(['submitALink']);
+  }
+
   onChangeDropDownBox(selectedOrderByOption:string) {
     this.selectedOrderByOption = selectedOrderByOption;
     if(this.selectedOrderByOption=="mostToLess"){
