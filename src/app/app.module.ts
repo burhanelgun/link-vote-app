@@ -10,13 +10,16 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import { AppRoutingModule } from './app-routing.module'; 
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule }   from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LinkListComponent,
-    LinkListItemComponent
+    LinkListItemComponent,
+    SubmitALinkComponent
   ],
   imports: [
     AppRoutingModule ,
@@ -24,7 +27,9 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

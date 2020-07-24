@@ -13,7 +13,7 @@
 </mat-form-field>
 
 <ul class="heroes">
-  <li *ngFor="let link of links">
+  <li *ngFor="let link of linkListService.links">
     <app-link-list-item (upVoteLink)="upVoteLinkBtnOnClick($event)" (downVoteLink)="downVoteLinkBtnOnClick($event)" [link]=link></app-link-list-item>
   </li>
 </ul>

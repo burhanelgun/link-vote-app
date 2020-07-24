@@ -1,7 +1,6 @@
-export interface Link {
-    id: number;
+export class Link {
     title: string;
     url: string;
     point: number;
-    creationTimestamp: string;
+    creationTimestamp: number;
 }

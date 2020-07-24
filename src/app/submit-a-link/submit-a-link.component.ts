@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { Link } from '../models/link';
+import { LinkListService } from '../link-list.service';
 
 @Component({
   selector: 'app-submit-a-link',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SubmitALinkComponent implements OnInit {
 
-  constructor() { }
+  link: Link =new Link();
+  constructor(private router: Router,public linkListService: LinkListService) { }
 
   ngOnInit(): void {
   }
 
+  returnToListBtnOnClick(){
+    this.router.navigate(['']);
+  }
+
+  addBtnOnClick(){
+    this.link.point=0;
+    this.link.creationTimestamp=Date.now();
+    this.linkListService.addLink(this.link);
+  }
 }
