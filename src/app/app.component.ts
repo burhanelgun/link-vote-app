@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { LinkListService } from './link-list.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'link-vote-app';
+
+  constructor(public linkListService: LinkListService) { }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event) {
+    localStorage.setItem('links', JSON.stringify(this.linkListService.links));
+  }
+
+
 }

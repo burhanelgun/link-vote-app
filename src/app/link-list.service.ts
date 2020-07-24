@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { Link } from './models/link';
 
 @Injectable({
@@ -7,12 +7,7 @@ import { Link } from './models/link';
 export class LinkListService {
   selectedOrderByOption:string;
   links: Link[] = [
-    { title: 'Google', url:"www.google.com", point:0, creationTimestamp:1},
-    { title: 'Twitter', url:"www.twitter.com", point:0, creationTimestamp:2},
-    { title: 'Facebook', url:"www.facebook.com", point:0, creationTimestamp:3 },
-    { title: 'Instagram', url:"www.instagram.com", point:0, creationTimestamp:4},
-    { title: 'Youtube', url:"www.youtube.com", point:0, creationTimestamp:5 },
-    { title: 'Stackoverflow', url:"www.stackoverflow.com", point:0, creationTimestamp:6 },
+
   ];
   constructor() { }
 

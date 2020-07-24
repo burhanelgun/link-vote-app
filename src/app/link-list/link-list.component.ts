@@ -17,10 +17,8 @@ export class LinkListComponent implements OnInit {
   constructor(private router: Router, public linkListService: LinkListService) { }
 
   ngOnInit(): void {
-  
-    console.log("ngOnInit");
-    console.log(this.selectedOrderByOption);
     if(this.linkListService.selectedOrderByOption==null){
+      this.linkListService.links= JSON.parse(localStorage.getItem('links'));
       this.linkListService.sortByCreationTimestampDecreasingly();
     }
     else if(this.linkListService.selectedOrderByOption=="mostToLess"){
