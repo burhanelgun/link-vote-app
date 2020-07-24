@@ -4,9 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## To Run This Project
 
-* Download the project
-* Go dist/link-vote-app
-* Open the index.html
+1. Download the project
+1. Go dist/link-vote-app
+1. Open the index.html
 
 ## Development server
 
